@@ -1,5 +1,5 @@
 
-const MY_PHONE = "573004986845"; // TU NUMERO DE WHATSAPP CON CODIGO DE PAIS PERO SIN EL SIGNO + NI ESPACIOS
+const MY_PHONE = "573023083344"; // TU NUMERO DE WHATSAPP CON CODIGO DE PAIS PERO SIN EL SIGNO + NI ESPACIOS
 
 // ===== BOTONES PEDIR AHORA =====
 function sendWhatsApp(product) {
@@ -10,4 +10,5 @@ function sendWhatsApp(product) {
     const url = `https://wa.me/${MY_PHONE}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
 }
+
 
