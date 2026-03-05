@@ -149,12 +149,16 @@ function checkout() {
 
    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
    message += `💰 *TOTAL A PAGAR: $${total.toLocaleString("es-CO")}*\n`;
+   message += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+   message += "💳 *MEDIOS DE PAGO DISPONIBLES*\n";
    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
 
-   message += "💳 Te enviaré los medios de pago disponibles.\n";
-   message += "Banco:(Bancolombia, Nequi, Daviplata)"
-   message += "Confirma cuál prefieres utilizar ✅\n\n";
-   message += "Enviar comprobante de pago para activar servicio 🚀";
+   message += "Bancolombia\n";
+   message += "Nequi\n";
+   message += "Daviplata\n\n";
+
+   message += "Por favor confirma cuál prefieres utilizar ✅\n";
+   message += "Luego envía el comprobante de pago para activar tu servicio 🚀";
 
    const url = `https://wa.me/${MY_PHONE}?text=${encodeURIComponent(message)}`;
    window.open(url, "_blank");
@@ -162,6 +166,3 @@ function checkout() {
    cart = [];
    updateCart();
 }
-
-
-
