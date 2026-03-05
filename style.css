@@ -540,3 +540,70 @@ footer .soporte p a:hover {
         right: 20px;
     }
 }
+
+
+@media (prefers-color-scheme: dark) {
+  body { background-color: #121212; color: #e0e0e0; }
+  header, footer { background-color: #1e1e1e; }
+  .card { background-color: #1a1a1a; color: #e0e0e0; border: 1px solid #333; }
+  .cart-panel { background-color: #1e1e1e; color: #fff; }
+  .whatsapp-float { background-color: #075E54; color: #fff; }
+}
+
+
+@media (max-width: 768px) {
+ 
+  .cart-icon {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    font-size: 2rem;
+    background: #ff4500;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 9999;
+  }
+  #cart-panel {
+    width: 90%;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 20px;
+    font-size: 0.9rem;
+  }
+  #overlay { display: none; }
+
+ 
+  .whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    text-decoration: none;
+    z-index: 9999;
+  }
+  .whatsapp-float img { width: 30px; height: 30px; }
+
+  
+  footer {
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 0.8rem;
+  }
+  footer h4 { font-size: 1rem; }
+  footer p { font-size: 0.75rem; }
+
+  
+  .catalogo { display: grid; grid-template-columns: 1fr; gap: 15px; padding: 10px; }
+  .card img { width: 100%; height: auto; border-radius: 8px; }
+  .card button { font-size: 0.9rem; padding: 8px 12px; }
+}
+
