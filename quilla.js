@@ -129,7 +129,7 @@ function checkout() {
    let message = "";
 
    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-   message += "        🎬 *STREAMING QUILLA* 🎬\n";
+   message += "🎬 *STREAMING QUILLA* 🎬\n";
    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
 
    message += `🧾 Pedido: ${numeroPedido}\n`;
@@ -166,3 +166,24 @@ function checkout() {
    cart = [];
    updateCart();
 }
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(reg => console.log('Service Worker registrado', reg))
+      .catch(err => console.log('Error SW', err));
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const body = document.body;
+  body.style.opacity = 0;
+  body.style.transform = 'scale(1.05)';
+  body.style.transition = 'opacity 1s ease, transform 1s ease';
+  
+  setTimeout(() => {
+    body.style.opacity = 1;
+    body.style.transform = 'scale(1)';
+  }, 100);
+});
+
