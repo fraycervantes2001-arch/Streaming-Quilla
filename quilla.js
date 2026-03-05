@@ -152,6 +152,7 @@ function checkout() {
    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
 
    message += "💳 Te enviaré los medios de pago disponibles.\n";
+   message += "Banco:(Bancolombia, Nequi, Daviplata)"
    message += "Confirma cuál prefieres utilizar ✅\n\n";
    message += "Enviar comprobante de pago para activar servicio 🚀";
 
