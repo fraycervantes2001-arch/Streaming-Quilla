@@ -115,14 +115,9 @@ function clearCart() {
 
 
 
-function toggleCart(){
-
-const cart = document.getElementById("cart-panel");
-const overlay = document.getElementById("overlay");
-
-cart.classList.toggle("active");
-overlay.classList.toggle("active");
-
+function toggleCart() {
+    document.getElementById("cart-panel").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
 }
 
 
@@ -231,4 +226,17 @@ card.style.display = text.includes(filter) ? "block" : "none";
 });
 
 });
+}
+
+function cerrarcart() {
+    const cartPanel = document.getElementById("cart-panel");
+    const overlay = document.getElementById("overlay");
+
+    if (cartPanel) {
+        cartPanel.classList.remove("active");
+    }
+
+    if (overlay) {
+        overlay.classList.remove("active");
+    }
 }
