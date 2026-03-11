@@ -18,13 +18,13 @@ particlesJS('particles', {
     "line_linked": {
       "enable": true,
       "distance": 150,
-      "color": "#ffffff",
-      "opacity": 0.4,
+      "color": "#00e5ff",
+      "opacity": 0.25,
       "width": 1
     },
     "move": {
       "enable": true,
-      "speed": 3,
+      "speed": 2.5,
       "direction": "none",
       "out_mode": "bounce"
     }
@@ -45,7 +45,7 @@ particlesJS('particles', {
       "grab": {
         "distance": 140,
         "line_linked": {
-          "opacity": 1
+          "opacity": 0.8
         }
       },
       "push": {
