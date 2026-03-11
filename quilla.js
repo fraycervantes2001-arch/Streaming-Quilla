@@ -5,21 +5,61 @@ let deferredPrompt = null;
 let currentFilter = "all";
 let currentSearch = "";
 
+const EMOJIS = {
+    saludo: "👋",
+    marca: "🎬",
+    info: "📌",
+    producto: "📺",
+    pedido: "🧾",
+    fecha: "📅",
+    hora: "⏰",
+    carrito: "🛒",
+    total: "💰",
+    pago: "💳",
+    banco: "🏦",
+    nequi: "📱",
+    daviplata: "📲",
+    check: "✅",
+    rocket: "🚀",
+    sparkle: "✨"
+};
+
 const savedCart = localStorage.getItem("cart");
 if (savedCart) {
     cart = JSON.parse(savedCart);
 }
 
-function sendWhatsApp(tipo, detalle = "") {
-    let message = `Hola 👋 estoy interesado en ${tipo}`;
+function construirWhatsAppUrl(numero, mensaje) {
 
-    if (detalle !== "") {
-        message += ` - ${detalle}`;
+    const textoNormalizado = mensaje.replace(/\n/g, "\r\n");
+
+    const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+
+    if (isMobile) {
+        return `https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(textoNormalizado)}`;
+    } else {
+        return `https://web.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(textoNormalizado)}`;
     }
 
-    message += `.\n¿Me brindas más información?`;
+}
 
-    const url = `https://wa.me/${MY_PHONE}?text=${encodeURIComponent(message)}`;
+function sendWhatsApp(tipo, detalle = "") {
+    let message = "";
+
+    message += "━━━━━━━━━━━━━━━━━━━━━━━\n";
+    message += `${EMOJIS.marca} *STREAMING QUILLA*\n`;
+    message += "━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+
+    message += `${EMOJIS.saludo} Hola, estoy interesado en este servicio:\n\n`;
+    message += `${EMOJIS.producto} *${tipo}*\n`;
+
+    if (detalle !== "") {
+        message += `${EMOJIS.info} ${detalle}\n`;
+    }
+
+    message += `\n${EMOJIS.sparkle} ¿Me brindas más información, por favor?`;
+
+    const url = construirWhatsAppUrl(MY_PHONE, message);
     window.open(url, "_blank");
 }
 
@@ -114,57 +154,100 @@ function cerrarcart() {
     if (overlay) overlay.classList.remove("active");
 }
 
+let mensajeFinal = "";
+
 function checkout() {
-    if (cart.length === 0) {
-        alert("Tu carrito está vacío");
-        return;
-    }
 
-    const ahora = new Date();
-    const fecha = ahora.toLocaleDateString("es-CO");
-    const hora = ahora.toLocaleTimeString("es-CO");
-    const numeroPedido = "SQ" + Math.floor(100000 + Math.random() * 900000);
+if (cart.length === 0) {
+alert("Tu carrito está vacío");
+return;
+}
 
-    let total = 0;
-    let message = "";
+const ahora = new Date();
+const fecha = ahora.toLocaleDateString("es-CO");
+const hora = ahora.toLocaleTimeString("es-CO");
+const numeroPedido = "SQ" + Math.floor(100000 + Math.random() * 900000);
 
-    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-    message += "🎬 *STREAMING QUILLA* 🎬\n";
-    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+let total = 0;
+let html = "";
 
-    message += `🧾 Pedido: ${numeroPedido}\n`;
-    message += `📅 Fecha: ${fecha}\n`;
-    message += `⏰ Hora: ${hora}\n\n`;
+html += `<p><b>Pedido:</b> ${numeroPedido}</p>`;
+html += `<p><b>Fecha:</b> ${fecha}</p>`;
+html += `<p><b>Hora:</b> ${hora}</p><hr>`;
 
-    message += "🛒 DETALLE DEL PEDIDO\n";
-    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
+cart.forEach(item => {
 
-    cart.forEach(item => {
-        total += item.price * item.quantity;
-        message += `• ${item.name}\n`;
-        message += `   Cantidad: ${item.quantity}\n`;
-        message += `   Subtotal: $${(item.price * item.quantity).toLocaleString("es-CO")}\n\n`;
-    });
+const subtotal = item.price * item.quantity;
+total += subtotal;
 
-    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-    message += `💰 *TOTAL A PAGAR: $${total.toLocaleString("es-CO")}*\n`;
-    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-    message += "💳 *MEDIOS DE PAGO DISPONIBLES*\n";
-    message += "━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+html += `
+<div class="invoice-item">
+<span>${item.name} x${item.quantity}</span>
+<span>$${subtotal.toLocaleString("es-CO")}</span>
+</div>
+`;
 
-    message += "Bancolombia\n";
-    message += "Nequi\n";
-    message += "Daviplata\n\n";
+});
 
-    message += "Por favor confirma cuál prefieres utilizar ✅\n";
-    message += "Luego envía el comprobante de pago para activar tu servicio 🚀";
+html += `<hr>`;
+html += `<div class="invoice-total">TOTAL: $${total.toLocaleString("es-CO")}</div>`;
 
-    const url = `https://wa.me/${MY_PHONE}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+document.getElementById("invoice-content").innerHTML = html;
+document.getElementById("invoice-modal").style.display = "flex";
 
-    cart = [];
-    updateCart();
-    cerrarcart();
+let message = "";
+
+message += "━━━━━━━━━━━━━━━━━━━━━━━\n";
+message += "🎬 *STREAMING QUILLA*\n";
+message += "━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+
+message += `🧾 Pedido: ${numeroPedido}\n`;
+message += `📅 Fecha: ${fecha}\n`;
+message += `⏰ Hora: ${hora}\n\n`;
+
+message += "🛒 DETALLE DEL PEDIDO\n";
+message += "━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+
+cart.forEach(item => {
+
+const subtotal = item.price * item.quantity;
+
+message += `📺 ${item.name}\n`;
+message += `Cantidad: ${item.quantity}\n`;
+message += `Subtotal: $${subtotal.toLocaleString("es-CO")}\n\n`;
+
+});
+
+message += "━━━━━━━━━━━━━━━━━━━━━━━\n";
+message += `💰 TOTAL: $${total.toLocaleString("es-CO")}\n`;
+message += "━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+
+message += "💳 MEDIOS DE PAGO\n";
+message += "🏦 Bancolombia\n";
+message += "📱 Nequi\n";
+message += "📲 Daviplata\n\n";
+
+message += "Envía el comprobante para activar tu servicio 🚀";
+
+mensajeFinal = message;
+
+}
+
+function enviarPedidoWhatsApp(){
+
+const url = construirWhatsAppUrl(MY_PHONE, mensajeFinal);
+
+window.open(url, "_blank");
+
+cart = [];
+updateCart();
+
+cerrarFactura();
+
+}
+
+function cerrarFactura(){
+document.getElementById("invoice-modal").style.display = "none";
 }
 
 function showToast(message) {
