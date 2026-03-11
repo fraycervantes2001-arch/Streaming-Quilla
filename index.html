@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Streaming Quilla</title>
+
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="logo de streaming Quilla.jpeg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <meta name="theme-color" content="#000000">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
     <meta name="theme-color" content="#000000">
-    <link rel="apple-touch-icon" href="logo de streaming Quilla.jpeg">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="logo de streaming Quilla.jpeg">
+
+    <meta name="description"
+        content="Compra cuentas y pantallas premium de Netflix, Disney+, HBO Max, Prime Video, Spotify, Canva Pro y más al mejor precio.">
+    <meta name="keywords"
+        content="streaming quilla, netflix, disney plus, hbo max, spotify premium, canva pro, cuentas premium">
+    <meta property="og:title" content="Streaming Quilla">
+    <meta property="og:description" content="Tus plataformas de diseño y entretenimiento premium al mejor precio">
+    <meta property="og:image" content="logo de streaming Quilla.jpeg">
+    <meta property="og:type" content="website">
 </head>
 
 <body>
@@ -23,313 +34,494 @@
 
     <div id="particles"></div>
 
+    <div class="promo-banner" id="promo-banner">
+        <span>🔥 Promo activa: descuentos especiales en cuentas completas</span>
+        <button onclick="closePromo()">✕</button>
+    </div>
+
+    <button id="installBtn" class="install-btn" style="display:none;">📲 Instalar app</button>
+
     <div class="cart-icon" onclick="toggleCart()">
         🛒 <span id="cart-count">0</span>
     </div>
 
-
     <div id="cart-panel" class="cart-panel">
-        <h2>Tu Pedido</h2>
+        <div class="cart-header">
+            <h2>Tu Pedido</h2>
+            <button class="cart-close-top" onclick="cerrarcart()">✕</button>
+        </div>
+
         <div id="cart-items"></div>
-        <p><strong>Total: $<span id="cart-total">0</span> COP</strong></p>
-        <button onclick="checkout()">Finalizar Pedido</button>
-        <button onclick="clearCart()">🗑 Vaciar carrito</button>
-        <button onclick="cerrarcart()">cerrar carrito</button>
+        <p class="cart-total-wrap"><strong>Total: $<span id="cart-total">0</span> COP</strong></p>
+
+        <div class="cart-actions">
+            <button onclick="checkout()">Finalizar Pedido</button>
+            <button onclick="clearCart()">🗑 Vaciar carrito</button>
+            <button onclick="cerrarcart()">Cerrar carrito</button>
+        </div>
     </div>
 
     <div id="overlay" class="overlay" onclick="toggleCart()"></div>
 
-    <header>
+    <header class="hero">
         <div class="logo-esquina">
             <img src="logo de streaming Quilla.jpeg" alt="Logo Streaming Quilla">
         </div>
 
+        <div class="hero-content">
+            <span class="hero-badge">Premium Store</span>
+            <h1 class="titulo-principal">
+                Tus plataformas de diseño y entretenimiento premium al mejor precio
+            </h1>
+            <p class="hero-subtitle">
+                Compra cuentas y pantallas de tus servicios favoritos con atención rápida, precios competitivos y soporte.
+            </p>
+        </div>
     </header>
 
-    <header>
-        <h1 class="titulo-principal">
-            Tus plataformas de diseño y entretenimiento premium al mejor precio
-        </h1>
-    </header>
+    <section class="toolbar-wrap">
+        <p id="product-counter" class="product-counter"></p>
+
+        <div class="toolbar">
+            <div class="buscador">
+                <input type="text" id="searchInput" placeholder="Buscar plataforma, categoría o plan...">
+            </div>
+
+            <div class="ordenador">
+                <select id="sortSelect">
+                    <option value="">Ordenar</option>
+                    <option value="asc">Precio: menor a mayor</option>
+                    <option value="desc">Precio: mayor a menor</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <section class="filtros">
+        <button onclick="filterCards('all')" class="filter-btn active-filter" data-filter="all">Todos</button>
+        <button onclick="filterCards('streaming')" class="filter-btn" data-filter="streaming">Streaming</button>
+        <button onclick="filterCards('musica')" class="filter-btn" data-filter="musica">Música</button>
+        <button onclick="filterCards('diseno')" class="filter-btn" data-filter="diseno">Diseño</button>
+        <button onclick="filterCards('ia')" class="filter-btn" data-filter="ia">IA</button>
+        <button onclick="filterCards('deportes')" class="filter-btn" data-filter="deportes">Deportes</button>
+    </section>
 
     <section class="catalogo">
-        <div class="card">
-            <img src="logo de netflix.png">
+
+        <div class="card" data-category="streaming">
+            <span class="badge">Popular</span>
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de netflix.png" alt="Netflix">
             <h2>Netflix</h2>
             <p class="pantalla">Pantalla</p>
             <p class="precio">$12.000 COP</p>
             <p class="descripcion">Películas, series originales, documentales y contenido exclusivo en HD y 4K.</p>
-            <button onclick="addToCart('Netflix pantalla', 12000)">
-                Agregar al carrito
-            </button>
+            <div class="card-buttons">
+                <button onclick="addToCart('Netflix pantalla', 12000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('Netflix pantalla', '$12.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de netflix.png">
+        <div class="card" data-category="streaming">
+            <span class="badge">Top</span>
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de netflix.png" alt="Netflix">
             <h2>Netflix</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$55.000 COP</p>
             <p class="descripcion">Películas, series originales, documentales y contenido exclusivo en HD y 4K.</p>
-            <button onclick="addToCart('Netflix cuenta completa', 55000)">
-                Agregar al carrito
-            </button>
+            <div class="card-buttons">
+                <button onclick="addToCart('Netflix cuenta completa', 55000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('Netflix cuenta completa', '$55.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de disney+.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de disney+.png" alt="Disney+">
             <h2>Disney+</h2>
             <p class="pantalla">Pantalla</p>
             <p class="precio">$10.000 COP</p>
-            <p class="descripcion">Marvel, Star Wars, Pixar, Disney clásicos, National Geographic y deportes en vivo.
-            </p>
-            <button onclick="addToCart('Disney+ Pantalla', 10000)">Agregar al carrito</button>
+            <p class="descripcion">Marvel, Star Wars, Pixar, Disney clásicos, National Geographic y deportes en vivo.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('Disney+ Pantalla', 10000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('Disney+ Pantalla', '$10.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de disney+.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de disney+.png" alt="Disney+">
             <h2>Disney+</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$16.000 COP</p>
-            <p class="descripcion">Marvel, Star Wars, Pixar, Disney clásicos, National Geographic y deportes en vivo.
-            </p>
-            <button onclick="addToCart('Disney+ Cuenta Completa', 16000)">Agregar al carrito</button>
+            <p class="descripcion">Marvel, Star Wars, Pixar, Disney clásicos, National Geographic y deportes en vivo.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('Disney+ Cuenta Completa', 16000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('Disney+ Cuenta Completa', '$16.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de disney+.png">
+        <div class="card" data-category="deportes streaming">
+            <span class="badge">Combo</span>
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de disney+.png" alt="Disney+ ESPN">
             <h2>Disney+</h2>
-            <p class="pantalla">Pantalla con star+Espn incluido</p>
+            <p class="pantalla">Pantalla con Star+ ESPN incluido</p>
             <p class="precio">$12.000 COP</p>
-            <p class="descripcion">Marvel, Star Wars, Pixar, Disney clásicos, National Geographic y deportes en vivo.
-            </p>
-            <button onclick="addToCart('pantalla Disney+ & espn icluido ', 12000)">Agregar al carrito</button>
+            <p class="descripcion">Marvel, Star Wars, Pixar, Disney clásicos, National Geographic y deportes en vivo.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('pantalla Disney+ & espn incluido', 12000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('pantalla Disney+ & espn incluido', '$12.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de disney+.png">
+        <div class="card" data-category="deportes streaming">
+            <span class="badge">Oferta</span>
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de disney+.png" alt="Disney+ ESPN">
             <h2>Disney+</h2>
-            <p class="cuenta completa">Cuenta completa con star+Espn incluido</p>
+            <p class="cuenta completa">Cuenta completa con Star+ ESPN incluido</p>
             <p class="precio">$35.000 COP</p>
-            <p class="descripcion">Marvel, Star Wars, Pixar, Disney clásicos, National Geographic y deportes en vivo.
-            </p>
-            <button onclick="addToCart('cuenta completa Disney+ & espn icluido ', 35000)">Agregar al carrito</button>
+            <p class="descripcion">Marvel, Star Wars, Pixar, Disney clásicos, National Geographic y deportes en vivo.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Disney+ & espn incluido', 35000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Disney+ & espn incluido', '$35.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de hbomax.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de hbomax.png" alt="HBO Max">
             <h2>HBO Max</h2>
             <p class="pantalla">Pantalla</p>
             <p class="precio">$10.000 COP</p>
             <p class="descripcion">Series premium como Game of Thrones, películas Warner y DC.</p>
-            <button onclick="addToCart('pantalla Hbomax ', 10000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('pantalla Hbomax', 10000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('pantalla Hbomax', '$10.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de hbomax.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de hbomax.png" alt="HBO Max">
             <h2>HBO Max</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$16.000 COP</p>
             <p class="descripcion">Series premium como Game of Thrones, películas Warner y DC.</p>
-            <button onclick="addToCart('cuenta completa Hbomax ', 16000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Hbomax', 16000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Hbomax', '$16.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-
-        <div class="card">
-            <img src="logo de prime video.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de prime video.png" alt="Prime Video">
             <h2>Prime Video</h2>
             <p class="pantalla">Pantalla</p>
             <p class="precio">$10.000 COP</p>
             <p class="descripcion">Series exclusivas, películas y contenido original de Amazon.</p>
-            <button onclick="addToCart('pantalla Prime video ', 10000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('pantalla Prime video', 10000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('pantalla Prime video', '$10.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de prime video.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de prime video.png" alt="Prime Video">
             <h2>Prime Video</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$18.000 COP</p>
             <p class="descripcion">Series exclusivas, películas y contenido original de Amazon.</p>
-            <button onclick="addToCart('cuenta completa Prime video ', 18000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Prime video', 18000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Prime video', '$18.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de crunchyroll.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de crunchyroll.png" alt="Crunchyroll">
             <h2>Crunchyroll</h2>
             <p class="pantalla">Pantalla</p>
             <p class="precio">$8.000 COP</p>
             <p class="descripcion">Anime en simulcast, estrenos de Japón y catálogo completo.</p>
-            <button onclick="addToCart('pantalla Crunchyroll ', 8000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('pantalla Crunchyroll', 8000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('pantalla Crunchyroll', '$8.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de crunchyroll.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de crunchyroll.png" alt="Crunchyroll">
             <h2>Crunchyroll</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$12.000 COP</p>
             <p class="descripcion">Anime en simulcast, estrenos de Japón y catálogo completo.</p>
-            <button onclick="addToCart('cuenta completa Crunchyroll ', 12000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Crunchyroll', 12000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Crunchyroll', '$12.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-
-        <div class="card">
-            <img src="logo Paramount.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo Paramount.png" alt="Paramount+">
             <h2>Paramount+</h2>
             <p class="pantalla">Pantalla</p>
             <p class="precio">$10.000 COP</p>
             <p class="descripcion">Series exclusivas, deportes, Nickelodeon y películas clásicas.</p>
-            <button onclick="addToCart('pantalla Paramount+ ', 10000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('pantalla Paramount+', 10000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('pantalla Paramount+', '$10.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo Paramount.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo Paramount.png" alt="Paramount+">
             <h2>Paramount+</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$12.000 COP</p>
             <p class="descripcion">Series exclusivas, deportes, Nickelodeon y películas clásicas.</p>
-            <button onclick="addToCart('cuenta completa Paramount+ ', 12000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Paramount+', 12000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Paramount+', '$12.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="youtube.png">
+        <div class="card" data-category="musica">
+            <span class="badge">Premium</span>
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="youtube.png" alt="YouTube Premium">
             <h2>YouTube Premium</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$12.000 COP</p>
             <p class="descripcion">Sin anuncios, YouTube Music y reproducción en segundo plano.</p>
-            <button onclick="addToCart('cuenta completa Youtube premium', 12000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Youtube premium', 12000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Youtube premium', '$12.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="Apple_TV+_logo.png">
-            <h2>apple tv+</h2>
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="Apple_TV+_logo.png" alt="Apple TV+">
+            <h2>Apple TV+</h2>
             <p class="pantalla">Pantalla</p>
             <p class="precio">$10.000 COP</p>
             <p class="descripcion">Contenido exclusivo de Apple, series y películas originales.</p>
-            <button onclick="addToCart('pantalla Apple tv+ ', 10000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('pantalla Apple tv+', 10000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('pantalla Apple tv+', '$10.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="vix.png">
+        <div class="card" data-category="streaming deportes">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="vix.png" alt="Vix">
             <h2>Vix</h2>
             <p class="pantalla">Pantalla</p>
             <p class="precio">$8.000 COP</p>
             <p class="descripcion">Contenido femenino, series, películas en español y deportes en vivo de liga mx.</p>
-            <button onclick="addToCart('pantalla Vix ', 8000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('pantalla Vix', 8000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('pantalla Vix', '$8.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="vix.png">
+        <div class="card" data-category="streaming deportes">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="vix.png" alt="Vix">
             <h2>Vix</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$12.000 COP</p>
             <p class="descripcion">Contenido femenino, series, películas en español y deportes en vivo de liga mx.</p>
-            <button onclick="addToCart('cuenta completa Vix ', 12000)">Agregar al carrito</button>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Vix', 12000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Vix', '$12.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="plex.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="plex.png" alt="Plex">
             <h2>Plex</h2>
             <p class="pantalla">Pantalla</p>
             <p class="precio">$8.000 COP</p>
-            <p class="descripcion">Acceso a contenido de múltiples proveedores, sin anuncios ni límites de reproducción.
-            </p>
-            <button onclick="addToCart('pantalla Plex ', 8000)">Agregar al carrito</button>
+            <p class="descripcion">Acceso a contenido de múltiples proveedores, sin anuncios ni límites de reproducción.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('pantalla Plex', 8000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('pantalla Plex', '$8.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="plex.png">
+        <div class="card" data-category="streaming">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="plex.png" alt="Plex">
             <h2>Plex</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$16.000 COP</p>
-            <p class="descripcion">Acceso a contenido de múltiples proveedores, sin anuncios ni límites de reproducción.
-            </p>
-            <button onclick="addToCart('cuenta completa Plex ', 16000)">Agregar al carrito</button>
+            <p class="descripcion">Acceso a contenido de múltiples proveedores, sin anuncios ni límites de reproducción.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Plex', 16000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Plex', '$16.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo chatgpt.png">
-            <h2>Chat GPT pro</h2>
+        <div class="card" data-category="ia">
+            <span class="badge">IA</span>
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo chatgpt.png" alt="Chat GPT Pro">
+            <h2>Chat GPT Pro</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$25.000 COP</p>
-            <p class="descripcion">Acceso a funcionalidades avanzadas de inteligencia artificial, incluyendo asistencia
-                en múltiples idiomas y generación de contenido.
-            </p>
-            <button onclick="addToCart('cuenta completa Chat gpt Pro', 25000)">Agregar al carrito</button>
+            <p class="descripcion">Acceso a funcionalidades avanzadas de inteligencia artificial, asistencia en múltiples idiomas y generación de contenido.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Chat gpt Pro', 25000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Chat gpt Pro', '$25.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="canva.png">
-            <h2>Canva pro</h2>
+        <div class="card" data-category="diseno">
+            <span class="badge">Diseño</span>
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="canva.png" alt="Canva Pro">
+            <h2>Canva Pro</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$8.000 COP</p>
-            <p class="descripcion">Herramienta de diseño gráfico en línea para crear presentaciones, flyers, logos y
-                más.
-            </p>
-            <button onclick="addToCart('cuenta completa Canva pro ', 8000)">Agregar al carrito</button>
+            <p class="descripcion">Herramienta de diseño gráfico en línea para crear presentaciones, flyers, logos y más.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Canva pro', 8000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Canva pro', '$8.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de deezer.png">
+        <div class="card" data-category="musica">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de deezer.png" alt="Deezer">
             <h2>Deezer</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$12.000 COP</p>
-            <p class="descripcion">Acceso a millones de canciones, playlists personalizadas y contenido exclusivo de
-                Deezer.
-            </p>
-            <button onclick="addToCart('cuenta completa Deezer ', 12000)">Agregar al carrito</button>
+            <p class="descripcion">Acceso a millones de canciones, playlists personalizadas y contenido exclusivo de Deezer.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Deezer', 12000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Deezer', '$12.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="picsart.png">
+        <div class="card" data-category="diseno">
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="picsart.png" alt="Picsart">
             <h2>Picsart</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$12.000 COP</p>
-            <p class="descripcion">herramienta para editar imagenes, videos y diseño de fotos</p>
-            <button onclick="addToCart('cuenta completa Picsart ', 12000)">Agregar al carrito</button>
+            <p class="descripcion">Herramienta para editar imágenes, videos y diseño de fotos.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Picsart', 12000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Picsart', '$12.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="logo de spotify.png">
+        <div class="card" data-category="musica">
+            <span class="badge">Top Music</span>
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="logo de spotify.png" alt="Spotify">
             <h2>Spotify</h2>
             <p class="cuenta completa">Cuenta completa</p>
             <p class="precio">$12.000 COP</p>
-            <p class="descripcion">Acceso a millones de canciones, playlists personalizadas y contenido exclusivo de
-                Spotify.
-            </p>
-            <button onclick="addToCart('cuenta completa Spotify ', 12000)">Agregar al carrito</button>
+            <p class="descripcion">Acceso a millones de canciones, playlists personalizadas y contenido exclusivo de Spotify.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('cuenta completa Spotify', 12000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('cuenta completa Spotify', '$12.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
-        <div class="card">
-            <img src="win play.png">
+        <div class="card" data-category="deportes">
+            <span class="badge">Deportes</span>
+            <button class="favorite-btn" onclick="toggleFavorite(this)">♥</button>
+            <img src="win play.png" alt="Win Play">
             <h2>Win Play</h2>
-            <p class="pantalla">pantalla</p>
+            <p class="pantalla">Pantalla</p>
             <p class="precio">$25.000 COP</p>
-            <p class="descripcion">plataforma de deportes en vivo, con acceso a eventos deportivos, análisis y contenido
-                exclusivo de
-                Win Play.
-            </p>
-            <button onclick="addToCart('pantalla Win play ', 25000)">Agregar al carrito</button>
+            <p class="descripcion">Plataforma de deportes en vivo, con acceso a eventos deportivos, análisis y contenido exclusivo de Win Play.</p>
+            <div class="card-buttons">
+                <button onclick="addToCart('pantalla Win play', 25000)">Agregar al carrito</button>
+                <button class="secondary-btn" onclick="sendWhatsApp('pantalla Win play', '$25.000 COP')">Comprar ahora</button>
+            </div>
         </div>
 
     </section>
 
-    <a href="#" onclick="sendWhatsApp('Información General', 'Consulta')" class="whatsapp-float">
-        <i class="fab fa-whatsapp text-2xl"></i>
+    <section class="testimonios">
+        <div class="section-title">
+            <span>Clientes felices</span>
+            <h2>Lo que dicen nuestros clientes</h2>
+        </div>
+
+        <div class="testimonio-grid">
+            <div class="testimonio">
+                <p>"Muy rápido y confiable. Activaron mi cuenta sin problema."</p>
+                <span>⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="testimonio">
+                <p>"La atención fue excelente y los precios están muy buenos."</p>
+                <span>⭐⭐⭐⭐⭐</span>
+            </div>
+            <div class="testimonio">
+                <p>"Compré varias plataformas y todo salió perfecto."</p>
+                <span>⭐⭐⭐⭐⭐</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="section-title">
+            <span>Ayuda</span>
+            <h2>Preguntas frecuentes</h2>
+        </div>
+
+        <details>
+            <summary>¿Cuánto tarda la entrega?</summary>
+            <p>Después de confirmar el pago, la activación suele realizarse en poco tiempo.</p>
+        </details>
+
+        <details>
+            <summary>¿Qué métodos de pago aceptan?</summary>
+            <p>Bancolombia, Nequi y Daviplata.</p>
+        </details>
+
+        <details>
+            <summary>¿Tienen garantía?</summary>
+            <p>Sí, brindamos soporte en caso de inconvenientes con tu acceso.</p>
+        </details>
+    </section>
+
+    <a href="#" onclick="sendWhatsApp('Información General', 'Consulta'); return false;" class="whatsapp-float">
         <span>¿Dudas? Chatea con nosotros</span>
-        <img src="icons8-whatsapp-50.png">
+        <img src="icons8-whatsapp-50.png" alt="WhatsApp">
     </a>
 
-    <footer class="mt-20 py-10 border-t border-gray-800 text-center">
-        <div class="max-w-2xl mx-auto px-6">
-            <h4 class="text-amber-500 font-bold mb-4">Garantía de Satisfacción</h4>
-            <p class="text-gray-500 text-xs">
+    <footer>
+        <div class="footer-content">
+            <h4>Garantía de Satisfacción</h4>
+            <p>
                 Todas nuestras cuentas son verificadas antes de la entrega.
                 Si tienes un problema, respondemos en menos de 12h.
             </p>
         </div>
     </footer>
-    <script src="quilla.js"></script>
+
+    <div id="toast" class="toast"></div>
+    <button id="backToTop" class="back-to-top" onclick="scrollToTop()">↑</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="particles.js"></script>
-    <script src="service-worker.js"></script>
+    <script src="quilla.js"></script>
 </body>
 
 </html>
