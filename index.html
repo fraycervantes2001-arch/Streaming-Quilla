@@ -26,12 +26,15 @@
     <div class="cart-icon" onclick="toggleCart()">
         🛒 <span id="cart-count">0</span>
     </div>
-    <div id="cart-content" class="cart-content">
-        <h3>Tu carrito</h3>
+
+
+    <div id="cart-panel" class="cart-panel">
+        <h2>Tu Pedido</h2>
         <div id="cart-items"></div>
         <p><strong>Total: $<span id="cart-total">0</span> COP</strong></p>
-        <button class="checkout-btn">Finalizar compra</button>
-        <button class="clear-btn">Vaciar carrito</button>
+        <button onclick="checkout()">Finalizar Pedido</button>
+        <button onclick="clearCart()">🗑 Vaciar carrito</button>
+        <button onclick="cerrarcart()">cerrar carrito</button>
     </div>
 
     <div id="overlay" class="overlay" onclick="toggleCart()"></div>
@@ -48,10 +51,6 @@
             Tus plataformas de diseño y entretenimiento premium al mejor precio
         </h1>
     </header>
-
-    <div class="buscador">
-        <input type="text" id="searchInput" placeholder="Buscar plataforma...">
-    </div>
 
     <section class="catalogo">
         <div class="card">
