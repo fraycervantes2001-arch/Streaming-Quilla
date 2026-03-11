@@ -1,21 +1,22 @@
 {
-"name": "Streaming Quilla",
-"short_name": "Quilla",
-"start_url": "/",
-"display": "standalone",
-"background_color": "#000000",
-"theme_color": "#000000",
-"orientation": "portrait",
-"icons": [
-{
-"src": "logo de streaming Quilla.jpeg",
-"sizes": "192x192",
-"type": "image/png"
-},
-{
-"src": "logo de streaming Quilla.jpeg",
-"sizes": "512x512",
-"type": "image/png"
-}
-]
+  "name": "Streaming Quilla",
+  "short_name": "Quilla",
+  "description": "Tus plataformas de entretenimiento premium al mejor precio.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo de streaming Quilla.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "logo de streaming Quilla.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
 }
