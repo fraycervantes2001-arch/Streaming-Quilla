@@ -443,32 +443,63 @@ cursor:pointer;
 
 /* WHATSAPP */
 
+/* BOTON WHATSAPP */
+
 .whatsapp-float{
 position:fixed;
 bottom:20px;
 right:20px;
 background:#25D366;
 color:white;
-padding:12px 16px;
+padding:12px;
 border-radius:50px;
 display:flex;
 align-items:center;
 gap:10px;
 text-decoration:none;
+overflow:hidden;
+width:50px;
+transition:all .3s ease;
+box-shadow:0 0 0 rgba(37,211,102,0);
 }
+
+/* icono */
 
 .whatsapp-float img{
 width:25px;
+}
+
+/* texto oculto */
+
+.whatsapp-float span{
+opacity:0;
+white-space:nowrap;
+font-size:14px;
+transition:opacity .3s;
+}
+
+/* efecto al pasar mouse */
+
+.whatsapp-float:hover{
+width:180px;
+box-shadow:0 0 15px #25D366;
+}
+
+/* mostrar texto */
+
+.whatsapp-float:hover span{
+opacity:1;
 }
 
 /* FOOTER */
 
 footer{
 background:#14141c;
-padding:30px;
+padding:25px;
 text-align:center;
 margin-top:40px;
 color:#aaa;
+font-size:13px; /* texto más pequeño */
 }
 
 /* BOTON SUBIR */
