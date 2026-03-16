@@ -464,15 +464,6 @@ width:25px;
 }
 
 
-/* texto oculto */
-
-.whatsapp-float span{
-opacity:0;
-white-space:nowrap;
-font-size:14px;
-transition:opacity .3s;
-}
-
 /* efecto al pasar mouse */
 
 .whatsapp-float:hover{
@@ -480,11 +471,7 @@ width:180px;
 box-shadow:0 0 15px #25D366;
 }
 
-/* mostrar texto */
 
-.whatsapp-float:hover span{
-opacity:1;
-}
 
 /* FOOTER */
 
