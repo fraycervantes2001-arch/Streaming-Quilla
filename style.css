@@ -530,3 +530,17 @@ width:100%;
 
 }
 
+.badge{
+    position:absolute;
+    top:12px;
+    right:12px;
+    background:linear-gradient(135deg, #ffb703, #ffd166);
+    color:#0d0d0d;
+    font-size:.74rem;
+    font-weight:900;
+    padding:6px 10px;
+    border-radius:999px;
+    box-shadow:0 6px 16px rgba(255,183,3,.28);
+    z-index:2;
+}
+
