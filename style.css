@@ -451,16 +451,16 @@ bottom:20px;
 right:20px;
 background:#25D366;
 color:white;
-padding:12px;
+padding:12px 16px;
 border-radius:50px;
 display:flex;
 align-items:center;
 gap:10px;
 text-decoration:none;
-overflow:hidden;
-width:50px;
-transition:all .3s ease;
-box-shadow:0 0 0 rgba(37,211,102,0);
+}
+
+.whatsapp-float img{
+width:25px;
 }
 
 
